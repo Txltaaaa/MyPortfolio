@@ -1,9 +1,90 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accueil - Mon Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #222;
+      padding: 10px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      transition: background 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: #444;
+      border-radius: 4px;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    #qrcode {
+      margin: 20px auto;
+      width: fit-content;
+      display: none; /* caché par défaut */
+    }
+
+    button#toggleQR {
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    button#toggleQR:hover {
+      background-color: #0056b3;
+    }
+
+    a.site-link {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a.site-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
@@ -18,7 +99,43 @@
   <main>
     <h1>Bienvenue sur mon portfolio</h1>
     <p>Je suis un(e) passionné(e) du web et voici mon espace personnel pour présenter mon travail.</p>
+
+    <button id="toggleQR">Afficher le QR Code</button>
+
+    <div id="qrcode"></div>
+
+    <p>Ou rends-toi directement sur <a class="site-link" href="https://monportfolio.com" target="_blank" rel="noopener noreferrer">monportfolio.com</a></p>
   </main>
+
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const qrContainer = document.getElementById('qrcode');
+    const btnToggle = document.getElementById('toggleQR');
+
+    // Crée le QR code une seule fois
+    const qrCode = new QRCode(qrContainer, {
+      text: "https://monportfolio.com", // <== Change cette URL par la tienne
+      width: 200,
+      height: 200,
+      colorDark : "#000000",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+
+    // Cacher le QR code au départ
+    qrContainer.style.display = 'none';
+
+    btnToggle.addEventListener('click', () => {
+      if(qrContainer.style.display === 'none'){
+        qrContainer.style.display = 'block';
+        btnToggle.textContent = 'Cacher le QR Code';
+      } else {
+        qrContainer.style.display = 'none';
+        btnToggle.textContent = 'Afficher le QR Code';
+      }
+    });
+  </script>
 
 </body>
 </html>
